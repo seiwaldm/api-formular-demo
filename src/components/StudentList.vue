@@ -33,6 +33,13 @@ async function getStudents() {
   studentList.value = data.items;
 }
 
+async function deleteStudent(id) {
+  await fetch(`${baseUrl}/${id}`, {
+    method: 'DELETE',
+  });
+  getStudents();
+}
+
 onMounted(async () => {
   getStudents();
 });
@@ -45,6 +52,7 @@ onMounted(async () => {
       {{ student.vorname }} {{ student.nachname }} wohnt in
       {{ student.wohnort }} und ist am
       {{ student.geburtstag.substring(0, 10) }} geboren.
+      <button @click="deleteStudent(student.id)">X</button>
     </li>
   </ul>
 
